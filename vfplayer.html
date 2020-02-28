@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  
+  <title>Vocafork Player</title>
+</head>
+<body>
+  <a id="song" target="_blank"></a>
+  <br>
+  <audio
+    id="audioPlayer"
+    controls
+    preload="auto">
+    
+  </audio>
+  <br>
+  <button id="prev">Previous</button>
+  <button id="next">Next</button>
+</body>
+
+<script>
+  
+  var _path = "https://vocafork.ahe.workers.dev/202001/20200121-20200131/20200125/";
+  var _files = [];
+  
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+console.log(getRandomInt(3));
+  
+  function next_song() {
+    var song_index = getRandomInt(_files.length);
+    $("#audioPlayer")[0].src = _path + _files[song_index].name;
+    $("#audioPlayer")[0].play();
+    $("#song")[0].textContent = _files[song_index].name;
+    $("#song")[0].href = "https://www.nicovideo.jp/watch/" + _files[song_index].name.split(" ")[0];
+  }
+  
+  $(function() {
+    $.post(_path,'{"password":"null"}', function(data,status){
+      var obj = $.parseJSON(data);
+      if(typeof obj != 'null'){
+        _files = obj.files;
+        next_song();
+      }
+    });
+    $("#next").click(next_song);
+    $("#audioPlayer")[0].addEventListener("ended", next_song);
+  });
+  
+</script>
+</html>
