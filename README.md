@@ -2,7 +2,7 @@
 
 *A TamperMonkey UserScript.*
 
-自用。可以直接在vocafork云盘的文件夹里听歌：
+自用。可以直接在vocafork云盘的文件夹里听每日niconico上的vocaloid新曲（免翻墙）：
 
 - 随机/顺序/循环播放
 - 点击列表中的文件直接播放
